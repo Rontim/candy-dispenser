@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../Tkinter Tutiorial/.idea/Tkinter Tutiorial.iml" filepath="$PROJECT_DIR$/../Tkinter Tutiorial/.idea/Tkinter Tutiorial.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/candy.iml" filepath="$PROJECT_DIR$/.idea/candy.iml" />
     </modules>
   </component>

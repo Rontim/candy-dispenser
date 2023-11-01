@@ -27,6 +27,7 @@ def add_oval(event):
         dialog.delete(dialog_content)
 
     if len(ovals) < max_ovals:
+        open_lid()
         x1 = 21
         x2 = x1 + oval_width
         y1 = start_y
@@ -42,6 +43,7 @@ def add_oval(event):
         # Add the oval reference to the list
         ovals.insert(0, new_oval)
         candie_colors.insert(0, fill_color)
+        canvas.after(500, close_lid)
 
     else:
         dialog_content = dialog.create_text((dialog.winfo_reqwidth() // 2) + 5, dialog.winfo_reqheight() // 2,
@@ -74,6 +76,7 @@ def remove_clicked(event):
         dialog.delete(dialog_content)
 
     if ovals:
+        open_lid()
         candy = ovals.pop(0)
         # print(canvas.itemcget(candy, option=)
         canvas.delete(candy)
@@ -83,6 +86,7 @@ def remove_clicked(event):
 
         shift(up=True)
         move_spring("up")
+        canvas.after(500, close_lid)
     else:
         if dialog_content:
             dialog.delete(dialog_content)
@@ -257,13 +261,6 @@ def check_empty_clicked(event):
                                         fill="orange", )
 
 
-def draw_rectangle(canva):
-    x1, y1 = 20, 20
-    x2, y2 = 100, 200
-
-    canva.create_rectangle(x1, y1, x2, y2, outline="black", width=2, fill="white")
-
-
 def create_spring():
     global spring_y1, spring_y2
     no_lines = 8
@@ -286,6 +283,14 @@ def create_spring():
         springs[new_spring] = [group[0], group[1]]
 
 
+def open_lid():
+    canvas.coords(top, Rx1, 0, Rx2, Ry1)
+
+
+def close_lid():
+    canvas.coords(top, Rx1, Ry1, Rx2, Ry1)
+
+
 root = tk.Tk()
 root.title("PEX candy dispenser")
 
@@ -295,7 +300,14 @@ frame.pack()
 canvas = tk.Canvas(frame, width=120, height=220)
 canvas.grid(row=0)
 
-draw_rectangle(canvas)
+# Rectangle
+Rx1, Ry1 = 19, 19
+Rx2, Ry2 = 102, 202
+top = canvas.create_line(Rx1, Ry1, Rx2, Ry1, width=3, fill="black")
+left = canvas.create_line(Rx1, Ry1, Rx1, Ry2, width=3, fill="black")
+bottom = canvas.create_line(Rx1, Ry2, Rx2, Ry2, width=3, fill="black")
+right = canvas.create_line(Rx2, Ry1, Rx2, Ry2, width=3, fill="black")
+
 plate = canvas.create_line(plate_x1, plate_y, plate_x2, plate_y, fill='green', width=5)
 
 dialog = tk.Canvas(frame, width=150, height=150, )
